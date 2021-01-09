@@ -29,14 +29,12 @@ const Home = ({ hiragana }) => {
   const [currentHiragana, setCurrentHiragana] = useState(hiraganaArray[0]);
   const [correct, setCorrect] = useState(0);
   const [remaining, setRemaining] = useState(hiragana.length);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const newFlashcard = correct => {
-    let interval;
+    setShowSpinner(true);
     if (flip) {
       setFlip(!flip);
-      interval = 300;
-    } else {
-      interval = 0;
     }
     setTimeout(() => {
       let newHiraganaArray = hiraganaArray;
@@ -47,6 +45,7 @@ const Home = ({ hiragana }) => {
         setCurrentHiragana(newHiraganaArray[0]);
         setCorrect(correct => correct + 1);
         setRemaining(remaining => remaining - 1);
+        setShowSpinner(false);
       } else {
         const incorrectFlashcard = newHiraganaArray[0];
         newHiraganaArray.shift();
@@ -54,8 +53,9 @@ const Home = ({ hiragana }) => {
         newHiraganaArray = shuffle(newHiraganaArray);
         setHiraganaArray(newHiraganaArray);
         setCurrentHiragana(newHiraganaArray[0]);
+        setShowSpinner(false);
       }
-    }, interval);
+    }, 500);
   };
 
   return (
@@ -75,6 +75,7 @@ const Home = ({ hiragana }) => {
         svg={currentHiragana.char_id}
         english={currentHiragana.romanization}
         changeFlip={() => setFlip(!flip)}
+        spinner={showSpinner}
       />
       <div className={styles.buttonsContainer}>
         <p>Did you get it correct?</p>
