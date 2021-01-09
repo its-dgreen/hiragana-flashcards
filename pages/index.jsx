@@ -5,18 +5,16 @@ import styles from '../styles/Home.module.css';
 import Hiragana from '../files/Hiragana.json';
 import Flashcard from '../components/flashcard';
 
+//shuffle function from https://stackoverflow.com/a/2450976
 const shuffle = array => {
   var currentIndex = array.length,
     temporaryValue,
     randomIndex;
 
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
 
-    // And swap it with the current element.
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
@@ -32,9 +30,10 @@ const Home = ({ hiragana }) => {
   const [remaining, setRemaining] = useState(hiragana.length);
 
   const newFlashcard = correct => {
-    const newHiraganaArray = hiraganaArray;
+    let newHiraganaArray = hiraganaArray;
     if (correct) {
       newHiraganaArray.shift();
+      newHiraganaArray = shuffle(newHiraganaArray);
       setHiraganaArray(newHiraganaArray);
       setCurrentHiragana(newHiraganaArray[0]);
       setCorrect(correct => correct + 1);
@@ -43,6 +42,7 @@ const Home = ({ hiragana }) => {
       const incorrectFlashcard = newHiraganaArray[0];
       newHiraganaArray.shift();
       newHiraganaArray.push(incorrectFlashcard);
+      newHiraganaArray = shuffle(newHiraganaArray);
       setHiraganaArray(newHiraganaArray);
       setCurrentHiragana(newHiraganaArray[0]);
     }
