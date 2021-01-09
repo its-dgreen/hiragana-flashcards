@@ -1,18 +1,15 @@
-import { useState } from 'react';
 import Image from 'next/image';
 
 import styles from '../styles/Flashcard.module.css';
 
-const Flashcard = ({ index, svg, english }) => {
-  const [flip, setFlip] = useState(false);
-
+const Flashcard = ({ flip, svg, english, changeFlip }) => {
   return (
     <div
       className={`${styles.cardWrapper} ${styles.flipUp} ${
         flip ? `${styles.flip}` : ''
       }`}
-      onClick={() => setFlip(!flip)}
-      onKeyDown={() => setFlip(!flip)}
+      onClick={changeFlip}
+      onKeyDown={changeFlip}
       role="button"
       tabIndex={0}
     >

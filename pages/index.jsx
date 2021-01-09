@@ -24,28 +24,38 @@ const shuffle = array => {
 };
 
 const Home = ({ hiragana }) => {
+  const [flip, setFlip] = useState(false);
   const [hiraganaArray, setHiraganaArray] = useState(hiragana);
   const [currentHiragana, setCurrentHiragana] = useState(hiraganaArray[0]);
   const [correct, setCorrect] = useState(0);
   const [remaining, setRemaining] = useState(hiragana.length);
 
   const newFlashcard = correct => {
-    let newHiraganaArray = hiraganaArray;
-    if (correct) {
-      newHiraganaArray.shift();
-      newHiraganaArray = shuffle(newHiraganaArray);
-      setHiraganaArray(newHiraganaArray);
-      setCurrentHiragana(newHiraganaArray[0]);
-      setCorrect(correct => correct + 1);
-      setRemaining(remaining => remaining - 1);
+    let interval;
+    if (flip) {
+      setFlip(!flip);
+      interval = 300;
     } else {
-      const incorrectFlashcard = newHiraganaArray[0];
-      newHiraganaArray.shift();
-      newHiraganaArray.push(incorrectFlashcard);
-      newHiraganaArray = shuffle(newHiraganaArray);
-      setHiraganaArray(newHiraganaArray);
-      setCurrentHiragana(newHiraganaArray[0]);
+      interval = 0;
     }
+    setTimeout(() => {
+      let newHiraganaArray = hiraganaArray;
+      if (correct) {
+        newHiraganaArray.shift();
+        newHiraganaArray = shuffle(newHiraganaArray);
+        setHiraganaArray(newHiraganaArray);
+        setCurrentHiragana(newHiraganaArray[0]);
+        setCorrect(correct => correct + 1);
+        setRemaining(remaining => remaining - 1);
+      } else {
+        const incorrectFlashcard = newHiraganaArray[0];
+        newHiraganaArray.shift();
+        newHiraganaArray.push(incorrectFlashcard);
+        newHiraganaArray = shuffle(newHiraganaArray);
+        setHiraganaArray(newHiraganaArray);
+        setCurrentHiragana(newHiraganaArray[0]);
+      }
+    }, interval);
   };
 
   return (
@@ -61,8 +71,10 @@ const Home = ({ hiragana }) => {
         </div>
       </div>
       <Flashcard
+        flip={flip}
         svg={currentHiragana.char_id}
         english={currentHiragana.romanization}
+        changeFlip={() => setFlip(!flip)}
       />
       <div className={styles.buttonsContainer}>
         <p>Did you get it correct?</p>
