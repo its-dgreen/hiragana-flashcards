@@ -8,7 +8,8 @@
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
 }
-.cardWrapper .card .front, .cardWrapper .card .back {
+.cardWrapper .card .front,
+.cardWrapper .card .back {
   position: absolute;
   top: 0;
   left: 0;
@@ -22,7 +23,7 @@
   font-size: 7rem;
 }
 .cardWrapper .card .back {
-  font-size: 20rem;
+  font-size: 10rem;
   font-weight: 700;
 }
 .cardWrapper.flipUp .card .back {
@@ -31,15 +32,18 @@
 .cardWrapper.flipUp.flip .card {
   transform: rotateX(180deg);
 }
-.cardWrapper, .card {
+.cardWrapper,
+.card {
   width: 50vw;
   height: 50vh;
   margin: 0 auto;
 }
-.cardWrapper:focus, .card:focus {
+.cardWrapper:focus,
+.card:focus {
   outline: none;
 }
-.card .front, .card .back {
+.card .front,
+.card .back {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,5 +56,5 @@
 }
 
 .card .back {
-  background: #dde4d2; 
+  background: #dde4d2;
 }

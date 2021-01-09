@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import styles from '../styles/Flashcard.module.css';
 
-const Flashcard = ({ svg, english }) => {
+const Flashcard = ({ index, svg, english }) => {
   const [flip, setFlip] = useState(false);
 
   return (
