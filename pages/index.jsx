@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 
-import Hiragana from '../files/Hiragana.json';
+import Hiragana from '../hiragana.json';
 import Flashcard from '../components/flashcard';
 
 //shuffle function from https://stackoverflow.com/a/2450976
