@@ -23,7 +23,7 @@
   font-size: 7rem;
 }
 .cardWrapper .card .back {
-  font-size: 10rem;
+  font-size: 13rem;
   font-weight: 700;
 }
 .cardWrapper.flipUp .card .back {
@@ -57,4 +57,10 @@
 
 .card .back {
   background: #dde4d2;
+}
+
+@media (max-width: 767px) {
+  .cardWrapper .card .back {
+    font-size: 5rem;
+  }
 }
